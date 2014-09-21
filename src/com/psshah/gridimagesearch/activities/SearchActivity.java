@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.etsy.android.grid.StaggeredGridView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.psshah.gridimagesearch.R;
@@ -30,7 +31,7 @@ import com.psshah.gridimagesearch.models.ImageResult;
 
 public class SearchActivity extends Activity {
 	private EditText etQuery;
-	private GridView gvResults;
+	private StaggeredGridView gvResults;
 	private ArrayList<ImageResult> imageResults;
 	private ImageResultsAdapter aImageResults;
 	public static String IMAGE = "image";
@@ -50,7 +51,7 @@ public class SearchActivity extends Activity {
 
 	private void setupViews() {
 		etQuery = (EditText) findViewById(R.id.etQuery);
-		gvResults = (GridView) findViewById(R.id.gvResults);
+		gvResults = (StaggeredGridView) findViewById(R.id.gvResults);
 		gvResults.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

@@ -6,19 +6,24 @@
 
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@string/label_image_result"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
+    <!--          
+    	android:layout_width="75dp"
+        android:layout_height="75dp"
+     -->
+     
+    <!--TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"
         android:ellipsize="end"
-        android:text="@string/label_title" />
+        android:text="@string/label_title" /-->
 
 </LinearLayout>

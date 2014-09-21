@@ -33,14 +33,14 @@ public class ImageResultsAdapter extends ArrayAdapter<ImageResult> {
 		}
 
 		// Get resources from view to populate
-		TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+		//TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 		ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivImage);
 
 		// Clear recycled view
 		ivImage.setImageResource(0);
 		
 		// Populate resources
-		tvTitle.setText(Html.fromHtml(image.title));
+		//tvTitle.setText(Html.fromHtml(image.title));
 		
 		// Use Picasso to download images
 		//Log.i("DEBUG", "fetching image " + image.thumbUrl);
