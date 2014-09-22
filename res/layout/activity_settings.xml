@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.psshah.gridimagesearch.activities.SettingsActivity" >
+
+    <TextView
+        android:id="@+id/tvSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/settings_label"
+        android:textSize="24sp" />
+    
+    <TextView
+        android:id="@+id/tvImageSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvSettings"
+        android:layout_below="@+id/tvSettings"
+        android:layout_marginTop="36dp"
+        android:text="@string/image_size_label" />
+ 
+    <Spinner
+        android:id="@+id/spImageSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvImageSize"
+        android:layout_toRightOf="@+id/tvImageType" />
+    
+    <TextView
+        android:id="@+id/tvImageType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvImageSize"
+        android:layout_below="@+id/tvImageSize"
+        android:layout_marginTop="16dp"        
+        android:text="@string/image_type_label" />
+
+    <Spinner
+        android:id="@+id/spImageType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvImageType"
+        android:layout_toRightOf="@+id/tvImageType" />
+    
+    <TextView
+        android:id="@+id/tvImageColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvImageType"
+        android:layout_below="@+id/tvImageType"
+        android:layout_marginTop="16dp"        
+        android:text="@string/color_label" />
+ 
+    <Spinner
+        android:id="@+id/spImageColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvImageColor"
+        android:layout_toRightOf="@+id/tvImageColor" />
+   
+    <TextView
+        android:id="@+id/tvImageSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvImageColor"
+        android:layout_below="@+id/tvImageColor"
+        android:layout_marginTop="16dp"        
+        android:text="@string/site_label" />
+
+    <EditText
+        android:id="@+id/etSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvImageSite"
+        android:layout_toRightOf="@+id/tvImageSite"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+    
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvImageSite"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:onClick="onSave"
+        android:text="@string/save_label" />
+
+    
+</RelativeLayout>

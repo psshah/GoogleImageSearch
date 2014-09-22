@@ -14,11 +14,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AbsListView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import com.etsy.android.grid.StaggeredGridView;
@@ -28,30 +27,41 @@ import com.psshah.gridimagesearch.R;
 import com.psshah.gridimagesearch.adapters.EndlessScrollListener;
 import com.psshah.gridimagesearch.adapters.ImageResultsAdapter;
 import com.psshah.gridimagesearch.models.ImageResult;
+import com.psshah.gridimagesearch.models.ImageSettings;
 
 public class SearchActivity extends Activity {
 	private EditText etQuery;
 	private StaggeredGridView gvResults;
 	private ArrayList<ImageResult> imageResults;
 	private ImageResultsAdapter aImageResults;
+	private ImageSettings settings;
 	public static String IMAGE = "image";
+	public static final String IMAGE_SETTINGS = "imgsettings";
+	public static final int SETTINGS_REQUEST_CODE = 50;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
 		setupViews();
+		setupGridViewListener();
 		imageResults = new ArrayList<ImageResult>();
+		settings = new ImageSettings();
 		
-		// Initialise adapter and attach data source
+		// Initialize adapter and attach data source
 		aImageResults = new ImageResultsAdapter(this, imageResults);
 		// Attach adapter to view (GridView)
 		gvResults.setAdapter(aImageResults);
 	}
-
+	
+	
 	private void setupViews() {
 		etQuery = (EditText) findViewById(R.id.etQuery);
 		gvResults = (StaggeredGridView) findViewById(R.id.gvResults);
+	}
+	
+	private void setupGridViewListener() {
 		gvResults.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -60,8 +70,7 @@ public class SearchActivity extends Activity {
 				Intent i = new Intent(SearchActivity.this, ImageDisplayActivity.class);
 				i.putExtra(IMAGE, image);
 				startActivity(i);
-			}
-			
+			}			
 		});
 		
 		gvResults.setOnScrollListener(new EndlessScrollListener() {						
@@ -73,8 +82,7 @@ public class SearchActivity extends Activity {
 			}
 
 			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				
+			public void onScrollStateChanged(AbsListView view, int scrollState) {				
 			}
 		});
 	}
@@ -87,16 +95,45 @@ public class SearchActivity extends Activity {
 		customLoadMoreDataFromApi(0);
 	}
 
+	public void onSettingsClick(MenuItem mi) {
+    	Intent i = new Intent(this, SettingsActivity.class);
+    	i.putExtra(IMAGE_SETTINGS, settings);
+    	startActivityForResult(i, SETTINGS_REQUEST_CODE);
+	}
+	
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == SETTINGS_REQUEST_CODE) {
+			if(resultCode == RESULT_OK) {
+				settings = 
+						(ImageSettings) data.getSerializableExtra(IMAGE_SETTINGS);
+				//Toast.makeText(this, settings.toString(), Toast.LENGTH_LONG).show();
+			}
+		}
+    }
 	
 	protected void customLoadMoreDataFromApi(int page) {
-		Log.i("INFO", "Endless scroll for page " + page);
+		//Log.i("INFO", "Endless scroll for page " + page);
 		if(page == 8) {
 			Log.i("INFO", "no more images");
 			return;
 		}
 		String query = etQuery.getText().toString();
 		String url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + query + "&rsz=8&start=" + page*8;
-		Log.i("INFO", url);
+		if(!settings.imgColor.isEmpty() && !settings.imgColor.equalsIgnoreCase("any")) {
+			url += "&imgcolor=" + settings.imgColor;
+		}
+		if(!settings.imgType.isEmpty() && !settings.imgType.equalsIgnoreCase("any")) {
+				url += "&imgtype="  + settings.imgType;
+		}
+		if(!settings.imgSize.isEmpty() && !settings.imgSize.equalsIgnoreCase("any")) {
+			url += "&imgsz=" + settings.imgSize;
+		}
+		if(!settings.imgSite.isEmpty()) {
+			url += "&as_sitesearch=" + settings.imgSite;
+		}
+
+		Log.i("INFO", "Requesting url:" + url);
 		
         // Create network client and initiate the network request
         AsyncHttpClient client = new AsyncHttpClient();
