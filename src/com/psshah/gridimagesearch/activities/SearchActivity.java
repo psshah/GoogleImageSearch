@@ -8,7 +8,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -53,6 +56,11 @@ public class SearchActivity extends Activity {
 		aImageResults = new ImageResultsAdapter(this, imageResults);
 		// Attach adapter to view (GridView)
 		gvResults.setAdapter(aImageResults);
+		
+		if(!isNetworkAvailable()) {
+			Toast.makeText(this, "Internet is not connected, try again", Toast.LENGTH_SHORT).show();
+			return;
+		}
 	}
 	
 	
@@ -113,6 +121,10 @@ public class SearchActivity extends Activity {
     }
 	
 	protected void customLoadMoreDataFromApi(int page) {
+		if(!isNetworkAvailable()) {
+			Toast.makeText(this, "Internet is not connected, try again", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		//Log.i("INFO", "Endless scroll for page " + page);
 		if(page == 8) {
 			Log.i("INFO", "no more images");
@@ -160,6 +172,15 @@ public class SearchActivity extends Activity {
 
 	}
 	
+	
+	/* Check network connectivity */
+	private Boolean isNetworkAvailable() {
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
