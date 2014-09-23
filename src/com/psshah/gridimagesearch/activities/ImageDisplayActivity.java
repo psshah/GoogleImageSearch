@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
+import com.ortiz.touch.TouchImageView;
 import com.psshah.gridimagesearch.R;
 import com.psshah.gridimagesearch.models.ImageResult;
 import com.squareup.picasso.Picasso;
@@ -20,7 +20,7 @@ public class ImageDisplayActivity extends Activity {
 		getActionBar().hide();
 		
 		ImageResult imageResult = (ImageResult) getIntent().getSerializableExtra(SearchActivity.IMAGE);
-		ImageView ivImageResult = (ImageView) findViewById(R.id.ivImageResult);
+		TouchImageView ivImageResult = (TouchImageView) findViewById(R.id.ivImageResult);
 		ivImageResult.getLayoutParams().height = imageResult.height;
 		ivImageResult.getLayoutParams().width = imageResult.width;
 		Picasso.with(this).load(imageResult.fullUrl).into(ivImageResult);
