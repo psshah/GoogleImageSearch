@@ -19,6 +19,7 @@ Optional: Robust error checking and error handling.
 Notes:
 
 Spent time making fullscreen image dimensions same as original. Also tried to use share button similar to other Android apps.
+One issue with TouchImageView library. It does not display image first time image is clicked, works fine second time onwards.
 
 
 Used following open source libraries. 
