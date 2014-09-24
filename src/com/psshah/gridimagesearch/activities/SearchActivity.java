@@ -155,8 +155,14 @@ public class SearchActivity extends Activity {
         		//Log.i("DEBUG", response.toString());
                 JSONArray imageResultsJson = null;
         		try {
-        			imageResultsJson = response.getJSONObject("responseData").getJSONArray("results");
-        			aImageResults.addAll(ImageResult.fromJSONArray(imageResultsJson));
+        			if (response.has("responseData") && !response.isNull("responseData")) {
+        				imageResultsJson = response.getJSONObject("responseData").getJSONArray("results");
+        				aImageResults.addAll(ImageResult.fromJSONArray(imageResultsJson));
+        			}
+        			else
+        			{
+                		Toast.makeText(SearchActivity.this, "Failed to fetch images", Toast.LENGTH_SHORT).show();	
+        			}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
